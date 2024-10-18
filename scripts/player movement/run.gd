@@ -8,14 +8,16 @@ extends State
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed('jump') and parent.is_on_floor():
 		return jump_state
+	elif Input.is_action_just_released("sprint"):
+		return walk_state
+	return null
+	
+func process_frame(delta: float) -> State:
+	if !parent.is_on_floor():
+		return fall_state
 	return null
 
 func process_physics(delta: float) -> State:
-	if !parent.is_on_floor():
-		return fall_state
-	elif Input.is_action_just_released("sprint"):
-		return walk_state
-	
 	parent.velocity.y += gravity * delta
 	
 	if Input.is_action_pressed("right"):

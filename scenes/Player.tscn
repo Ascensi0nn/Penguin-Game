@@ -14,9 +14,6 @@
 [ext_resource type="Script" path="res://scripts/player movement/slide.gd" id="12_xoll4"]
 [ext_resource type="Script" path="res://scripts/player movement/snowboarding.gd" id="13_gdry0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ug5yi"]
-size = Vector2(11, 15)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rr7ht"]
 radius = 3.0
 height = 10.0
@@ -112,13 +109,13 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lejx3"]
+radius = 4.5
+height = 15.0
+
 [node name="Player" type="CharacterBody2D"]
 physics_interpolation_mode = 2
 script = ExtResource("1_fswy3")
-
-[node name="ObjectCollision" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0.5)
-shape = SubResource("RectangleShape2D_ug5yi")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_rr7ht")
@@ -134,10 +131,14 @@ animation = &"glint"
 autoplay = "default"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(6, 6)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_iyh0t")
+
+[node name="ObjectCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("CapsuleShape2D_lejx3")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("5_2jpjq")
@@ -150,11 +151,12 @@ fall_state = NodePath("../Fall")
 walk_state = NodePath("../Walk")
 animation_name = "default"
 
-[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "dive_state")]
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "dive_state", "run_state")]
 script = ExtResource("7_hriey")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 dive_state = NodePath("../Dive")
+run_state = NodePath("../Run")
 
 [node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "jump_state", "run_state")]
 script = ExtResource("8_c63av")
@@ -175,12 +177,15 @@ idle_state = NodePath("../Idle")
 jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 
-[node name="Dive" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state")]
+[node name="Dive" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "slide_state")]
 script = ExtResource("11_62gjr")
 walk_state = NodePath("../Walk")
+slide_state = NodePath("../Slide")
 
-[node name="Slide" type="Node" parent="StateMachine"]
+[node name="Slide" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state")]
 script = ExtResource("12_xoll4")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
 
 [node name="Snowboarding" type="Node" parent="StateMachine"]
 script = ExtResource("13_gdry0")

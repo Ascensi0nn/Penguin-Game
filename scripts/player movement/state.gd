@@ -13,6 +13,7 @@ extends Node
 @export var run_acc = 7.0
 @export var walk_dec = 0.2
 @export var run_dec = 0.4
+@export var slide_dec = 0.1
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
