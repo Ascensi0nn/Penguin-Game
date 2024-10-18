@@ -1,0 +1,194 @@
+[gd_scene load_steps=28 format=3 uid="uid://cwphk25gpww0m"]
+
+[ext_resource type="Script" path="res://scripts/player movement/player.gd" id="1_fswy3"]
+[ext_resource type="Texture2D" uid="uid://b3qlpa0fkya4o" path="res://assets/sprites/penguin/penguin.png" id="1_pjqlh"]
+[ext_resource type="Texture2D" uid="uid://ba1wh0u2jccat" path="res://assets/sprites/sunglasses/sunglasses.png" id="2_u5acv"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="4_iyh0t"]
+[ext_resource type="Script" path="res://scripts/player movement/state_machine.gd" id="5_2jpjq"]
+[ext_resource type="Script" path="res://scripts/player movement/idle.gd" id="6_har82"]
+[ext_resource type="Script" path="res://scripts/player movement/fall.gd" id="7_hriey"]
+[ext_resource type="Script" path="res://scripts/player movement/walk.gd" id="8_c63av"]
+[ext_resource type="Script" path="res://scripts/player movement/jump.gd" id="9_061bn"]
+[ext_resource type="Script" path="res://scripts/player movement/run.gd" id="10_jja1f"]
+[ext_resource type="Script" path="res://scripts/player movement/dive.gd" id="11_62gjr"]
+[ext_resource type="Script" path="res://scripts/player movement/slide.gd" id="12_xoll4"]
+[ext_resource type="Script" path="res://scripts/player movement/snowboarding.gd" id="13_gdry0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ug5yi"]
+size = Vector2(11, 15)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rr7ht"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0q2rt"]
+atlas = ExtResource("1_pjqlh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cx68f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0q2rt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g78vv"]
+atlas = ExtResource("2_u5acv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3kmd"]
+atlas = ExtResource("2_u5acv")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixw5v"]
+atlas = ExtResource("2_u5acv")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7kq4"]
+atlas = ExtResource("2_u5acv")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4e2dt"]
+atlas = ExtResource("2_u5acv")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6q4eb"]
+atlas = ExtResource("2_u5acv")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnyxd"]
+atlas = ExtResource("2_u5acv")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72iqq"]
+atlas = ExtResource("2_u5acv")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwlc3"]
+atlas = ExtResource("2_u5acv")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0juw0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g78vv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3kmd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixw5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7kq4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4e2dt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6q4eb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnyxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72iqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwlc3")
+}],
+"loop": false,
+"name": &"glint",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+physics_interpolation_mode = 2
+script = ExtResource("1_fswy3")
+
+[node name="ObjectCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_ug5yi")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_rr7ht")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cx68f")
+
+[node name="SunglassesSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -4)
+scale = Vector2(0.447998, 0.451172)
+sprite_frames = SubResource("SpriteFrames_0juw0")
+animation = &"glint"
+autoplay = "default"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("4_iyh0t")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("5_2jpjq")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "fall_state", "walk_state")]
+script = ExtResource("6_har82")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+walk_state = NodePath("../Walk")
+animation_name = "default"
+
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "dive_state")]
+script = ExtResource("7_hriey")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+dive_state = NodePath("../Dive")
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "jump_state", "run_state")]
+script = ExtResource("8_c63av")
+fall_state = NodePath("../Fall")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+run_state = NodePath("../Run")
+
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "dive_state")]
+script = ExtResource("9_061bn")
+fall_state = NodePath("../Fall")
+dive_state = NodePath("../Dive")
+
+[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "jump_state", "walk_state")]
+script = ExtResource("10_jja1f")
+fall_state = NodePath("../Fall")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+walk_state = NodePath("../Walk")
+
+[node name="Dive" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state")]
+script = ExtResource("11_62gjr")
+walk_state = NodePath("../Walk")
+
+[node name="Slide" type="Node" parent="StateMachine"]
+script = ExtResource("12_xoll4")
+
+[node name="Snowboarding" type="Node" parent="StateMachine"]
+script = ExtResource("13_gdry0")
+
+[node name="State" type="Label" parent="."]
+offset_left = -61.0
+offset_top = -34.0
+offset_right = 63.0
+offset_bottom = -11.0
+text = "CURRENT STATE"
+horizontal_alignment = 1
