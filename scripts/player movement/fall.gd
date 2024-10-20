@@ -12,8 +12,8 @@ func process_frame(delta: float) -> State:
 		return idle_state
 	return null
 
-func process_input(event: InputEvent) -> State:
-	if Input.is_action_just_pressed("jump"):
+func process_input(_event: InputEvent) -> State:
+	if Input.is_action_just_pressed("dive"):
 		return dive_state
 	return null
 	
@@ -25,10 +25,10 @@ func process_physics(delta: float) -> State:
 	
 	if Input.is_action_pressed("right"):
 		parent.velocity.x = min(parent.velocity.x + current_acc, current_speed)
-		parent.animations.flip_h = false
+		flip_right(parent)
 	elif Input.is_action_pressed("left"):
 		parent.velocity.x = max(parent.velocity.x - current_acc, -current_speed)
-		parent.animations.flip_h = true
+		flip_left(parent)
 		
 	parent.move_and_slide()
 	return null

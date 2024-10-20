@@ -2,17 +2,19 @@ extends State
 
 @export var walk_state: State
 @export var slide_state: State
+@export var run_state: State
 
 func enter() -> void:
-	super()
-	if parent.animations.flip_h == false:
+	super()	
+	
+	if facing_right(parent):
 		parent.velocity.x = dive_speed
-	elif parent.animations.flip_h == true:
+	elif facing_left(parent):
 		parent.velocity.x = -dive_speed
 
-func process_frame(delta: float) -> State:
+func process_frame(_delta: float) -> State:
 	if parent.is_on_floor():
-		return slide_state if parent.velocity.x != 0 else walk_state
+		return run_state if Input.is_action_pressed("sprint") else walk_state
 	return null
 
 func process_physics(delta: float) -> State:

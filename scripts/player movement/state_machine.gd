@@ -1,14 +1,13 @@
 extends Node
  
-@export
-var starting_state: State
+@export var starting_state: State
 var current_state: State
+var last_movement_frame:int = 0
 
 func init(parent: Player) -> void:
 	for child in get_children():
 		child.parent = parent
 
-	# Initialize to the default state
 	change_state(starting_state)
 
 func change_state(new_state: State) -> void:

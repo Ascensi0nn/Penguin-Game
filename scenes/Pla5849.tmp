@@ -1,8 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://cwphk25gpww0m"]
+[gd_scene load_steps=40 format=3 uid="uid://cwphk25gpww0m"]
 
 [ext_resource type="Script" path="res://scripts/player movement/player.gd" id="1_fswy3"]
 [ext_resource type="Texture2D" uid="uid://b11b4kqyj0qff" path="res://assets/sprites/penguin/player.png" id="2_mh8sp"]
 [ext_resource type="Texture2D" uid="uid://ba1wh0u2jccat" path="res://assets/sprites/sunglasses/sunglasses.png" id="2_u5acv"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="4_iyh0t"]
 [ext_resource type="Script" path="res://scripts/player movement/state_machine.gd" id="5_2jpjq"]
 [ext_resource type="Script" path="res://scripts/player movement/idle.gd" id="6_har82"]
 [ext_resource type="Script" path="res://scripts/player movement/fall.gd" id="7_hriey"]
@@ -108,7 +109,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 16.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -211,17 +212,16 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tkgkg"]
-size = Vector2(10, 15.5)
+size = Vector2(12, 17)
 
 [node name="Player" type="CharacterBody2D"]
 physics_interpolation_mode = 2
 script = ExtResource("1_fswy3")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, -1)
-scale = Vector2(0.3, 0.3)
+position = Vector2(-1.25, -0.25)
+scale = Vector2(0.325, 0.325)
 sprite_frames = SubResource("SpriteFrames_cx68f")
-animation = &"run"
 autoplay = "default"
 
 [node name="SunglassesSprite" type="AnimatedSprite2D" parent="."]
@@ -236,9 +236,9 @@ autoplay = "default"
 zoom = Vector2(6, 6)
 process_callback = 0
 position_smoothing_enabled = true
+script = ExtResource("4_iyh0t")
 
 [node name="ObjectCollision" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -0.75)
 shape = SubResource("RectangleShape2D_tkgkg")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
@@ -258,6 +258,7 @@ idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 dive_state = NodePath("../Dive")
 run_state = NodePath("../Run")
+animation_name = "fall"
 
 [node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "jump_state", "run_state")]
 script = ExtResource("8_c63av")
@@ -281,11 +282,10 @@ jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 animation_name = "run"
 
-[node name="Dive" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "slide_state", "run_state")]
+[node name="Dive" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "slide_state")]
 script = ExtResource("11_62gjr")
 walk_state = NodePath("../Walk")
 slide_state = NodePath("../Slide")
-run_state = NodePath("../Run")
 animation_name = "dive"
 
 [node name="Slide" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state")]

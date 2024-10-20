@@ -3,7 +3,7 @@ extends State
 @export var idle_state: State
 @export var walk_state: State
 
-func process_frame(delta: float) -> State:
+func process_frame(_delta: float) -> State:
 	if parent.velocity.x == 0:
 		return walk_state
 	return walk_state
