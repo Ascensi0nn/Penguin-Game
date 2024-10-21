@@ -3,6 +3,7 @@ extends Node
 @export var starting_state: State
 var current_state: State
 var last_movement_frame:int = 0
+var can_double_jump:bool = true
 
 func init(parent: Player) -> void:
 	for child in get_children():

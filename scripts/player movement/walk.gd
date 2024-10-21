@@ -8,11 +8,12 @@ extends State
 func enter() -> void:
 	super()
 	parent.animations.set_frame_and_progress($"..".last_movement_frame, 0)
+	$"..".can_double_jump = true
 	
 func exit() -> void:
 	$"..".last_movement_frame = parent.animations.frame
 
-func process_frame(delta: float) -> State:
+func process_frame(_delta: float) -> State:
 	if !parent.is_on_floor():
 		return fall_state
 	return null

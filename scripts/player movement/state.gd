@@ -10,9 +10,9 @@ extends Node
 
 # Accelerations
 @export var walk_acc = 10.0
-@export var run_acc = 7.0
+@export var run_acc = 10.0
 @export var walk_dec = 0.2
-@export var run_dec = 0.1
+@export var run_dec = 0.2
 @export var slide_dec = 0.1
 
 

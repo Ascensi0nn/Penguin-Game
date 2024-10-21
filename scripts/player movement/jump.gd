@@ -2,12 +2,13 @@ extends State
 
 @export var fall_state: State
 @export var dive_state: State
+@export var jump_state: State
 
 func enter() -> void:
 	super()
 	parent.velocity.y = -jump_speed
 	
-func process_frame(delta: float) -> State:
+func process_frame(_delta: float) -> State:
 	if parent.velocity.y > 0.0:
 		return fall_state
 	return null
@@ -15,6 +16,9 @@ func process_frame(delta: float) -> State:
 func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("dive"):
 		return dive_state
+	elif $"..".can_double_jump == true and Input.is_action_just_pressed("jump"):
+		$"..".can_double_jump = false
+		return jump_state
 	return null
 
 func process_physics(delta: float) -> State:

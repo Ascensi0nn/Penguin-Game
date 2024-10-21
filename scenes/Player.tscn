@@ -245,19 +245,21 @@ shape = SubResource("RectangleShape2D_tkgkg")
 script = ExtResource("5_2jpjq")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "fall_state", "walk_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "fall_state", "walk_state", "run_state")]
 script = ExtResource("6_har82")
 jump_state = NodePath("../Jump")
 fall_state = NodePath("../Fall")
 walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
 animation_name = "default"
 
-[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "dive_state", "run_state")]
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "dive_state", "run_state", "jump_state")]
 script = ExtResource("7_hriey")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 dive_state = NodePath("../Dive")
 run_state = NodePath("../Run")
+jump_state = NodePath("../Jump")
 
 [node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "jump_state", "run_state")]
 script = ExtResource("8_c63av")
@@ -267,10 +269,11 @@ jump_state = NodePath("../Jump")
 run_state = NodePath("../Run")
 animation_name = "walk"
 
-[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "dive_state")]
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "dive_state", "jump_state")]
 script = ExtResource("9_061bn")
 fall_state = NodePath("../Fall")
 dive_state = NodePath("../Dive")
+jump_state = NodePath(".")
 animation_name = "jump"
 
 [node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "jump_state", "walk_state")]
@@ -286,17 +289,17 @@ script = ExtResource("11_62gjr")
 walk_state = NodePath("../Walk")
 slide_state = NodePath("../Slide")
 run_state = NodePath("../Run")
-animation_name = "dive"
+animation_name = "default"
 
 [node name="Slide" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state")]
 script = ExtResource("12_xoll4")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
-animation_name = "slide"
+animation_name = "default"
 
 [node name="Snowboarding" type="Node" parent="StateMachine"]
 script = ExtResource("13_gdry0")
-animation_name = "snowboard"
+animation_name = "default"
 
 [node name="State" type="Label" parent="."]
 offset_left = -62.0

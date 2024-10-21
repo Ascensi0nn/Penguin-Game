@@ -8,11 +8,12 @@ extends State
 func enter() -> void:
 	super()
 	parent.animations.set_frame_and_progress($"..".last_movement_frame, 0)
+	$"..".can_double_jump = true
 	
 func exit() -> void:
 	$"..".last_movement_frame = parent.animations.frame
 
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed('jump') and parent.is_on_floor():
 		return jump_state
 	elif Input.is_action_just_released("sprint"):
@@ -27,7 +28,7 @@ func process_frame(_delta: float) -> State:
 func process_physics(delta: float) -> State:
 	parent.velocity.y += gravity * delta
 	
-	if Input.is_action_pressed("right"):
+	if Input.is_action_pressed("right"):		
 		parent.velocity.x = min(parent.velocity.x + run_acc, run_speed)
 		flip_right(parent)
 	elif Input.is_action_pressed("left"):
