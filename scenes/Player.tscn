@@ -233,7 +233,7 @@ animation = &"glint"
 autoplay = "default"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(6, 6)
+zoom = Vector2(5, 5)
 process_callback = 0
 position_smoothing_enabled = true
 
