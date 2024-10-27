@@ -8,7 +8,6 @@ extends State
 func enter() -> void:
 	super()
 	parent.velocity.x = 0
-	$"..".can_double_jump = true
 
 func process_frame(_delta: float) -> State:
 	if !parent.is_on_floor():

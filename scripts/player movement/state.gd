@@ -5,7 +5,7 @@ extends Node
 # Speeds
 @export var walk_speed = 100.0
 @export var run_speed = 175.0
-@export var jump_speed = 300.0
+@export var jump_speed = 350.0
 @export var dive_speed = 300.0
 
 # Accelerations
